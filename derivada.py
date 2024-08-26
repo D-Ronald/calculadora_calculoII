@@ -16,8 +16,11 @@ df_dy_x0y0 = df_dy.subs({x:x0, y:y0})
 f_x0y0 = f.subs({x:x0, y:y0})
 
 
-def plano_tangente(x0, y0 , f_x0y0):
-    return f"z = {df_dx_x0y0*(x-x0) + df_dy_x0y0*(y-y0) + f_x0y0}"
+def calcula_plano_tangente(x0, y0 , f_x0y0):
+    return df_dx_x0y0*(x-x0) + df_dy_x0y0*(y-y0) + f_x0y0
+    
+def exibe_plano_tangente(point):
+    return f"z = {calcula_plano_tangente(point[0], point[1], point[2]):.2f}"
 
 def reta_normal(x0, y0, f_x0y0):
     vetor_1 = [x0, y0, f_x0y0]
