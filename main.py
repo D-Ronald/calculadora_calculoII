@@ -1,31 +1,23 @@
-from flask import Flask , jsonify, request
-from sympy.logic.inference import valid
-from sympy.polys.polyoptions import Method
-import derivada, sympy as smp, functions
+import sympy as sp
+import src.derivada as derivada, src.grafico as grafico
 
-app = Flask(__name__)
+função = str(input('Digite aqui sua função: '))
+função = sp.sympify(função)
+x = int(input('Digite o valor do ponto em x: '))
+y = int(input('Digite o valor do ponto em y: '))
+ponto = (x,y)
 
-@app.route("/plano", methods = ["GET"])
-def plano_tangente():
-  try :
-    function = request.args.get('function')
-    point_parameter = request.args.get('vector')
-    point = functions.str_to_float(point_parameter)
-    
-    if 'function' not in request.args:
-      result = "No have function"
-    if 'vector' not in request.args:
-      result = "No have vector"
-      return jsonify(result)
-    if functions.verify_vector(smp.sympify(function), point) == False:
-      result = "Value of vector is not valid"
-      return jsonify(result)
-    else:
-      result = {"plano_tangente": derivada.exibe_plano_tangente(point)}
-      return jsonify(result)
-  except Exception as e:
-    result = {"Error": str(e)}
-    return jsonify(result)
+def input_inplicita():
+  dependente = input('Derivada de: ')
+  independente = input('Em relação a: ')   
+  return dependente, independente
 
-if __name__ == "__main__":
-  app.run (host = "0.0.0.0")
+
+derivada.exibe_derivada_em_x(função)
+derivada.exibe_derivada_em_y(função)
+derivada.exibe_plano_tangente(ponto, função)
+derivada.exibe_reta_normal(ponto[0],ponto[1], função)
+input_inplicita = input_inplicita()
+derivada.exibe_derivada_implicita(função, dependente = input_inplicita[0], independente= input_inplicita[1])
+derivada.exibe_maximos_minimos(função)
+grafico.grafico_funcao(função)

@@ -1,5 +1,5 @@
 import sympy as smp
-x,y,z,t = smp.symbols("x y z t", real = True) 
+x,y,z,t = smp.symbols("x y z t") 
 
 def verify_vector(function, point):
     try:
