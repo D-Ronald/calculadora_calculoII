@@ -11,6 +11,7 @@ def verify_vector(function, point):
             return True
         return True
     except Exception as e:
+        print("erro ao verificar vetor: ", e)
         return False
 
 def clear_comma(string):
